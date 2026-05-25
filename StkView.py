@@ -514,7 +514,7 @@ def main() -> None:
 
     # 6. Sharpe ratios
     sharpe_ratios = sharpe_ratio(portfolio_data, columns, args.risk_free_rate)
-    plot_sharpe_ratio(sharpe_ratios, args.output_dir / "Sharpe Ratios.png")
+    plot_sharpe_ratio(sharpe_ratios, args.output_dir / "Sharpe-Ratios.png")
 
     # 7. Monte Carlo simulation
     last_price = df[args.price_column].iloc[-1]
