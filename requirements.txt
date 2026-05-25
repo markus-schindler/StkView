@@ -1,4 +1,12 @@
+argparse
+logging
+math
+matplotlib
 numpy
 pandas
-pytorch
+pathlib
+torch
+typing
 scikit-learn
+seaborn
+sys
