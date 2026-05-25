@@ -34,17 +34,17 @@ A practical way to translate volatility into a **Value of Risk** is to compute i
 
 ## Moving Averages
 
-![plot](output/AMD-MA.png)
+![plot](output/Advanced Micro Devices (EUR)-MA.png)
 
 ## Relative Strength Index and Sharpe Ratio
 
 The **Relative Strength Index** (RSI) is a momentum oscillator used in technical analysis to gauge speed and change of price movements. Its primary purpose is to help traders spot potential trend reversals, overbought or oversold conditions, and confirm other trading signals.
 
-![plot](AMD-RSI.png)
+![plot](output/Advanced Micro Devices (EUR)-RSI.png)
 
 The Sharpe Ration is a quick, widely-used metric that tells you how much excess return you're getting for each unit of risk you are taking on. In other words, it measures **risk-adjusted performance**. Why it matters: Two funds might have the same average return, but if one is much more volatile, the Sharpe Ratio will show that the risk-adjusted return is lower.
 
-![plot](output/Sharpe-Ratios.png)
+![plot](output/Sharpe Ratios.png)
 
 ## Monte-Carlo Simulation
 
@@ -92,7 +92,7 @@ python StkView.py data/stocks_05-22-2026_5y.csv
 
 ├── data **Data source folder**<br/>
 ├── input **Folder for portfolio configuration file**<br/>
-├── LICENSE **Unlicense**
+├── LICENSE **Unlicense**<br/>
 ├── output **Folder for created graphics**<br/>
 ├── README.md **This file**<br/>
 ├── requirements.txt	**Python dependencies**<br/>
