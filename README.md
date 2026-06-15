@@ -59,6 +59,17 @@ The Sharpe Ration is a quick, widely-used metric that tells you how much excess 
 ### Prerequisites
 
 * python 3.12.11
+* numpy 2.3.5
+* pandas 3.0.2
+* matplotlib 3.10.8
+* seaborn 0.13.2
+* scikit-learn 1.6.1
+* argparse
+* logging
+* math
+* pathlib
+* sys
+* torch
 * pip (Python package manager)
  
 ### Clone the repo:
