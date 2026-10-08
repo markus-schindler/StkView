@@ -1,116 +1,100 @@
-# StkView
+# StkView: Quantitative Stock Analysis & Predictive Modeling
 
-## Foundational Data Analysis for Stocks
+[![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://www.python.org/)
+[![PyTorch](https://img.shields.io/badge/PyTorch-Deep%20Learning-ee4c2c.svg)](https://pytorch.org/)
+[![Pandas](https://img.shields.io/badge/Pandas-Data%20Analysis-150458.svg)](https://pandas.pydata.org/)
+[![License: Unlicense](https://img.shields.io/badge/License-Unlicense-green.svg)](https://github.cUnlicense)
 
-**StkView**
+**StkView** is a comprehensive financial analysis pipeline designed to transform raw stock market data into actionable quantitative insights. The project integrates traditional statistical risk metrics, technical analysis indicators, and deep learning-based price forecasting.
 
-## Table of Contents
+## Overview
 
-* Description
-* Volatility and Value of Risk
-* Moving Averages
-* Relative Strength Index and Sharpe Ratio
-* Monte-Carlo Simulation
-* Long Short-Term Memory Model
-* Installation
-* File Structure
-* License
+The goal of StkView is to provide a robust framework for evaluating portfolio risk and predicting short-term price movements. The pipeline covers the entire data lifecycle: 
+from ingestion and cleaning to advanced predictive modeling.
 
-## Description
+### Key Features
+- **Automated Data Pipeline:** Robust preprocessing of CSV-based historical stock data, including outlier detection and imputation.
+- **Portfolio Risk Management:** Calculation of historical volatility and **Value at Risk (VaR)** for diversified portfolios.
+- **Technical Analysis Suite:** Implementation of Moving Averages, **Relative Strength Index (RSI)**, and **Sharpe Ratio**.
+- **Probabilistic Forecasting:** Monte Carlo simulations to project future price distributions.
+- **Deep Learning Predictor:** A **Long Short-Term Memory (LSTM)** neural network implemented in PyTorch for short-term trend forecasting.
 
-* The Python script loads a CSV file from the **data** directory that contains five‑year stock price histories for a random selection of globally active companies. The data is imported into a Pandas DataFrame, where the date column is parsed into a proper "datetime" format. Because the dataset uses commas as thousands separators, we replace them with periods and cast the numeric columns to "float". A custom function corrects obvious typos that inflate values into the hundreds of thousands.
-* We perform data quality checks: ensuring no missing values in the key columns. For the case that data is not available data imputation is applied. Final columns with incomplete data are dropped. Basic descriptive statistics (mean, standard deviation, min, max) are calculated for the entire dataset and printed to the console.
-* Next, we construct a diversified portfolio by selecting five technology firms and assigning them different weights. The configuration file is stored under input and contains the relevant stocks and their weight in the portfolio. We compute portfolio volatility, daily returns, and the Value‑at‑Risk (VaR). These metrics are visualized in a heatmap.
-* For a deeper analysis of a single stock Advanced Micro Devices (AMD) we calculate and plot its moving average, **Relative Strength Index** (RSI) to identify overbought / oversold conditions, and **Sharpe Ratio**.
-* A Monte‑Carlo simulation runs over 250 days projects AMD’s future price distribution, with the color intensity indicating the most probable outcomes.
-* Finally, we train an **LSTM** model (using PyTorch) to forecast short‑term price movements based on the previous four days. The dataset is split to 80 % / 20 % for training / testing purpose; the model successfully captures the trend very well.
+---
 
-## Volatility and Value of Risk
+## Technical Deep Dive
 
-Historical volatility is the standard deviation of the past returns, usually daily or weekly rolled up to an annual figure. Volatility is a **statitical** measure of how much a stock's price tends to swing. It is expressed as a percentage and is usually annualized for comparability.
-A practical way to translate volatility into a **Value of Risk** is to compute it for the portfolio. These give you a dollar amount that represents the worst expected loss over a give horizon at a chose confidence level.
+### 1. Data Engineering & Preprocessing
+To ensure high data quality, StkView implements a multi-stage cleaning process:
+* **Type Casting & Normalization:** Handles locale-specific formatting (e.g., converting comma-separated thousands to floats).
+* **Outlier Correction:** A custom heuristic function identifies and corrects data inflation errors.
+* **Data Integrity:** Implements missing-value imputation and drops incomplete features to maintain statistical validity.
+* **Descriptive Analytics:** Automated generation of baseline statistics (mean, std, min, max).
+
+### 2. Quantitative Analysis & Risk Metrics
+The project transitions from single-asset analysis to portfolio theory:
+* **Portfolio Construction:** Dynamic weighting of assets (configured via external input files).
+* **Risk Quantification:** 
+    * **Volatility:** Annualized standard deviation of daily returns.
+    * **Value at Risk (VaR):** Quantifies the maximum expected loss over a specific horizon at a given confidence level.
+* **Visualization:** Heatmaps for portfolio correlation and risk distribution.
+
+### 3. Technical Indicators & Simulations
+For deep-dives into specific assets (e.g., AMD), the system calculates:
+* **Momentum Indicators:** RSI to detect overbought/oversold conditions.
+* **Risk-Adjusted Return:** The Sharpe Ratio to evaluate the excess return per unit of deviation.
+* **Monte Carlo Simulation:** A stochastic model running 250-day projections to visualize the probability density of future prices.
+
+### 4. Predictive Modeling (LSTM)
+The project employs a Recurrent Neural Network (RNN) architecture:
+* **Model:** LSTM (Long Short-Term Memory) to capture long-term temporal dependencies.
+* **Windowing:** Uses a sliding window of 4 days of historical data as input features.
+* **Training:** 80/20 train-test split with PyTorch, focusing on trend capturing and MSE minimization.
+
+## Analysis & Visualizations
+
+This section showcases the quantitative outputs of the StkView pipeline, focusing on AMD as a primary case study.
 
 ![plot](output/Heatmap.png)
 
-## Moving Averages
+**Figure 1:** Heatmap for constructed portfolio.
 
 ![plot](output/AMD-MA.png)
 
-## Relative Strength Index and Sharpe Ratio
-
-The **Relative Strength Index** (RSI) is a momentum oscillator used in technical analysis to gauge speed and change of price movements. Its primary purpose is to help traders spot potential trend reversals, overbought or oversold conditions, and confirm other trading signals.
+**Figure 2:** MA plots for AMD.
 
 ![plot](output/AMD-RSI.png)
 
-The Sharpe Ration is a quick, widely-used metric that tells you how much excess return you're getting for each unit of risk you are taking on. In other words, it measures **risk-adjusted performance**. Why it matters: Two funds might have the same average return, but if one is much more volatile, the Sharpe Ratio will show that the risk-adjusted return is lower.
+**Figure 3:** RSI analysis for AMD, highlighting momentum shifts.
 
 ![plot](output/Sharpe-Ratios.png)
 
-## Monte-Carlo Simulation
+**Figure 4:** Risk-adjusted performance comparison via Sharpe Ratio.
 
 ![plot](output/Monte-Carlo.png)
 
-## Long Short-Term Memory Model
+**Figure 5:** 250-day price projection showing the probability density of outcomes.
 
 ![plot](output/LSTM.png)
 
-## Installation
+**Figure 6:** LSTM model performance: Predicted price trajectory vs. actual market data.
 
-### Prerequisites
+---
 
-* python 3.12.11
-* numpy 2.3.5
-* pandas 3.0.2
-* matplotlib 3.10.8
-* seaborn 0.13.2
-* scikit-learn 1.6.1
-* argparse
-* logging
-* math
-* pathlib
-* sys
-* torch
-* pip (Python package manager)
- 
-### Clone the repo:
-```
-git clone https://github.com/markus-schindler/StkView.git
-cd StkView
-```
+## Project Structure
 
-### Create a virtual environment (optional but recommended)
+```text
+├── data/               # Raw and processed stock CSVs
+├── input/              # Configuration files (Portfolio weights, tickers)
+├── output/             # Generated plots and analysis reports
+├── README.md           # This file
+├── requirements.txt    # Dependency list
+├── StkView.py          # Main execution engine
+└── LICENSE             # Unlicense
 ```
-python -m venv /path/to/new/virtual/environment
-source /path/to/new/virtual/environment/bin/activate
-```
-
-### Install dependencies
-```
-python -m pip install -r requirements.txt
-```
-
-### Usage
-```
-python StkView.py -h
-```
-Or use --help to overview all functionalities.
-Starting the data assessment:
-```
-python StkView.py data/stocks_05-22-2026_5y.csv
-``` 
-
-## File Structure
-
-├── data **Data source folder**<br/>
-├── input **Folder for portfolio configuration file**<br/>
-├── LICENSE **Unlicense**<br/>
-├── output **Folder for created graphics**<br/>
-├── README.md **This file**<br/>
-├── requirements.txt	**Python dependencies**<br/>
-└── StkView.py **Main Python application**<br/>
 
 ## License
 
 This project is licensed under the Unlicense - see the LICENSE file for details
 
 © 2026 Markus Schindler
+
